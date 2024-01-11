@@ -12,8 +12,9 @@ public class Thumbnail6 : MonoBehaviour
     public Sprite playSprite; // The play sprite
     public Sprite pauseSprite; // The pause sprite
     public AudioClip rhyme;
-    public TextMeshProUGUI counter;
-
+    
+    
+    public GameObject[] dots;
 
     public AudioSource source;
     public AudioSource sources;
@@ -27,6 +28,7 @@ public class Thumbnail6 : MonoBehaviour
 
     public GameObject activityCompleted;
     private Image speakerImage; // Reference to the Image component on the UI GameObject
+    private int currentDotIndex = -1; // Initialize to -1 to indicate no dot active
 
     private void Start()
     {
@@ -79,12 +81,23 @@ public class Thumbnail6 : MonoBehaviour
         if (currentQuestionIndex < questions.Length)
         {
             questions[currentQuestionIndex].SetActive(true);
+
+            // Activate the corresponding dot and deactivate the previous dot
+            if (currentDotIndex >= 0 && currentDotIndex < dots.Length)
+            {
+                dots[currentDotIndex].SetActive(false);
+            }
+
+            if (currentQuestionIndex < dots.Length)
+            {
+                dots[currentQuestionIndex].SetActive(true);
+                currentDotIndex = currentQuestionIndex;
+            }
         }
     }
 
     public void PlayVO(AudioClip clip)
     {
-       
         sources.clip = clip;
         sources.Play();
 
@@ -98,20 +111,20 @@ public class Thumbnail6 : MonoBehaviour
     public void OptionClicked(bool isCorrect)
     {
         // Log if the answer is wrong
-    if (!isCorrect)
-    {
-        Debug.Log("Answer is wrong.");
-        return; // Don't proceed to the next question
-    }
+        if (!isCorrect)
+        {
+            Debug.Log("Answer is wrong.");
+            return; // Don't proceed to the next question
+        }
 
-    // Disable the button
-    Button clickedButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-    if (clickedButton != null)
-    {
-        clickedButton.interactable = false;
-    }
+        // Disable the button
+        Button clickedButton = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+        if (clickedButton != null)
+        {
+            clickedButton.interactable = false;
+        }
 
-    StartCoroutine(questionDelay());
+        StartCoroutine(questionDelay());
     }
 
     IEnumerator questionDelay()
@@ -119,14 +132,7 @@ public class Thumbnail6 : MonoBehaviour
         yield return new WaitForSeconds(2f);
         // Move to the next question
         currentQuestionIndex++;
-       int currentCounterValue = int.Parse(counter.text);
-if (currentCounterValue < 6)
-{
-    currentCounterValue++;
-    counter.text = currentCounterValue.ToString();
-}
-
-
+      
         // Hide the current question
         if (currentQuestionIndex - 1 < questions.Length)
         {
@@ -137,6 +143,18 @@ if (currentCounterValue < 6)
         if (currentQuestionIndex < questions.Length)
         {
             questions[currentQuestionIndex].SetActive(true);
+
+            // Activate the corresponding dot and deactivate the previous dot
+            if (currentDotIndex >= 0 && currentDotIndex < dots.Length)
+            {
+                dots[currentDotIndex].SetActive(false);
+            }
+
+            if (currentQuestionIndex < dots.Length)
+            {
+                dots[currentQuestionIndex].SetActive(true);
+                currentDotIndex = currentQuestionIndex;
+            }
         }
         else
         {

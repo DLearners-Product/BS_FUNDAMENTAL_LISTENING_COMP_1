@@ -17,6 +17,7 @@ public class FollowDirections : MonoBehaviour
     public GameObject[] dots;
     private int currentDotIndex = 0; // Keep track of the current active dot
 
+
     void Start()
     {
         Q_count = 0;

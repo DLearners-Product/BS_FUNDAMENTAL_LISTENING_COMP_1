@@ -23,7 +23,7 @@ public class ColourGame : MonoBehaviour
     private int currentQuestionIndex = 0;
     public GameObject RiverBed;
     public GameObject Moutain;
-    public Button ReplaytheQuestion;
+  //  public Button ReplaytheQuestion;
     public AudioClip clap;
     public AudioSource sources;
     public ParticleSystem confette;

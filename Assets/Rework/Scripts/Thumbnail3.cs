@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +19,8 @@ public class Thumbnail3 : MonoBehaviour
     public GameObject set2;
     public GameObject activityCompleted;
     public TextMeshProUGUI counter;
+
+    
    
 
 
